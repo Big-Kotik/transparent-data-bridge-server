@@ -1,0 +1,4 @@
+writerConfig:
+  chunkSize: 2048
+  basicDir: $basicDir
+endpoint: "localhost:10000"
