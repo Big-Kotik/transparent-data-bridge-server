@@ -12,7 +12,7 @@ type BridgeConfig struct {
 }
 
 type WriterConfig struct {
-	ChunkSize int64  `yaml:"chunkSize"` // chunk size in bytes
+	// ChunkSize int64  `yaml:"chunkSize"` // chunk size in bytes
 	BasicDir  string `yaml:"basicDir"`
 }
 

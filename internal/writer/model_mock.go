@@ -72,7 +72,7 @@ func (m *MockChunkWriter) EXPECT() *MockChunkWriterMockRecorder {
 }
 
 // WriteChunk mocks base method.
-func (m *MockChunkWriter) WriteChunk(arg0 int, arg1 []byte) error {
+func (m *MockChunkWriter) WriteChunk(arg0 int64, arg1 []byte) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WriteChunk", arg0, arg1)
 	ret0, _ := ret[0].(error)

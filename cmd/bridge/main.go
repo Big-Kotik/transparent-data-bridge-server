@@ -28,7 +28,7 @@ func main() {
 			Msg("can't parse config")
 	}
 
-	w := writer.NewFileCreator(cfg.Writer.BasicDir, int(cfg.Writer.ChunkSize))
+	w := writer.NewFileCreator(cfg.Writer.BasicDir)
 	lis, err := net.Listen("tcp", cfg.Endpoint)
 	if err != nil {
 		log.Fatal().

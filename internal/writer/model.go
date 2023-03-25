@@ -7,5 +7,5 @@ type OsFileWriter interface {
 }
 
 type ChunkWriter interface {
-	WriteChunk(int, []byte) error
+	WriteChunk(int64, []byte) error
 }

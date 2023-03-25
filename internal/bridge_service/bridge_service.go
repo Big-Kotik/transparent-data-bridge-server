@@ -41,6 +41,7 @@ func (b *bridgeService) SendChunks(stream v1.TransparentDataBridgeService_SendCh
 	}
 
 	chunks := 0
+	offset := int64(0)
 	for {
 		reqWithChunk, err := stream.Recv()
 		if err == io.EOF {
@@ -59,11 +60,13 @@ func (b *bridgeService) SendChunks(stream v1.TransparentDataBridgeService_SendCh
 			return errors.New("expected chunk")
 		}
 
-		err = d.WriteChunk(chunks, c.Chunk)
+		err = d.WriteChunk(offset, c.Chunk)
 		if err != nil {
 			log.Debug().Err(err).Msg("can't write chunk to file")
 			return errors.Wrap(err, "can't write chunk to file")
 		}
+		chunks++
+		offset += int64(len(c.Chunk))
 	}
 }
 
