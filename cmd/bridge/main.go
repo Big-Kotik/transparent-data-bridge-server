@@ -10,6 +10,7 @@ import (
 	bridgeservice "github.com/Big-Kotik/transparent-data-bridge-server/internal/bridge_service"
 	"github.com/Big-Kotik/transparent-data-bridge-server/internal/config"
 	"github.com/Big-Kotik/transparent-data-bridge-server/internal/writer"
+	"github.com/rs/zerolog"
 	"google.golang.org/grpc"
 )
 
@@ -18,6 +19,8 @@ var cfgFile string
 
 // TODO: tests, log, docker
 func main() {
+	zerolog.SetGlobalLevel(zerolog.TraceLevel)
+
 	cfg, err := config.ConfigFromFile(cfgFile)
 	if err != nil {
 		log.Fatal().
@@ -38,6 +41,7 @@ func main() {
 	grpcServer := grpc.NewServer()
 	v1.RegisterTransparentDataBridgeServiceServer(grpcServer, bs)
 
+	log.Trace().Msg("starting grpc server")
 	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatal().
 			Err(err).
