@@ -66,6 +66,7 @@ func main() {
 	)
 
 	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
 	go signalHandler(cancel)
 
 	log.Trace().Msg("starting server")
