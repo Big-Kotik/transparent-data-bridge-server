@@ -3,7 +3,7 @@ module github.com/Big-Kotik/transparent-data-bridge-server
 go 1.19
 
 require (
-	github.com/Big-Kotik/transparent-data-bridge-api v0.0.0-20230325124240-c5e8af434ff1
+	github.com/Big-Kotik/transparent-data-bridge-api v0.0.0-20230325192134-71e638356d59
 	github.com/golang/mock v1.6.0
 	github.com/pkg/errors v0.9.1
 	github.com/rs/zerolog v1.29.0

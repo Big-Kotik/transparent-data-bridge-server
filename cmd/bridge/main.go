@@ -1,8 +1,11 @@
 package main
 
 import (
+	"context"
 	_ "embed"
-	"net"
+	"os"
+	"os/signal"
+	"syscall"
 
 	"github.com/rs/zerolog/log"
 
@@ -17,6 +20,20 @@ import (
 //go:embed config.yaml
 var cfgFile string
 
+func signalHandler(cancel context.CancelFunc) {
+	signals := make(chan os.Signal, 1)
+	signal.Notify(signals)
+
+	for signal := range signals {
+		if signal == syscall.SIGINT {
+			log.Debug().Msg("recive sigint")
+			cancel()
+		} else {
+			log.Debug().Str("signal", signal.String()).Msg("recive unexpected signal")
+		}
+	}
+}
+
 // TODO: tests, log, docker
 func main() {
 	zerolog.SetGlobalLevel(zerolog.TraceLevel)
@@ -29,20 +46,28 @@ func main() {
 	}
 
 	w := writer.NewFileCreator(cfg.Writer.BasicDir)
-	lis, err := net.Listen("tcp", cfg.Endpoint)
+	conn, err := grpc.Dial(cfg.ProxyEndpoint)
+	defer conn.Close()
 	if err != nil {
 		log.Fatal().
 			Err(err).
 			Msg("can't create socket")
 	}
 
-	bs := bridgeservice.NewBridgeService(w)
+	proxyClient := v1.NewTransparentDataRelayServiceClient(conn)
 
-	grpcServer := grpc.NewServer()
-	v1.RegisterTransparentDataBridgeServiceServer(grpcServer, bs)
+	server := bridgeservice.NewBridgeService(
+		proxyClient,
+		w,
+		cfg.Id,
+		cfg.Workers,
+	)
 
-	log.Trace().Msg("starting grpc server")
-	if err := grpcServer.Serve(lis); err != nil {
+	ctx, cancel := context.WithCancel(context.Background())
+	go signalHandler(cancel)
+
+	log.Trace().Msg("starting server")
+	if err := server.Run(ctx); err != nil {
 		log.Fatal().
 			Err(err).
 			Msg("error while serving tcp conn")

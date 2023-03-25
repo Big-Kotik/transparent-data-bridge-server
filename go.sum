@@ -1,5 +1,5 @@
-github.com/Big-Kotik/transparent-data-bridge-api v0.0.0-20230325124240-c5e8af434ff1 h1:irWL0Jh+cyannpmIwJ8gTk2/tMHt9qIdH644A3UQTJ0=
-github.com/Big-Kotik/transparent-data-bridge-api v0.0.0-20230325124240-c5e8af434ff1/go.mod h1:xe2587UjEGgt9o9HaUtDvVZQ2Kmnnx0qrOMmZNhcqMU=
+github.com/Big-Kotik/transparent-data-bridge-api v0.0.0-20230325192134-71e638356d59 h1:PB9eTljVoWPgFCXZ1wqxUQUdN6/8TipQtjX4QLmymCs=
+github.com/Big-Kotik/transparent-data-bridge-api v0.0.0-20230325192134-71e638356d59/go.mod h1:xe2587UjEGgt9o9HaUtDvVZQ2Kmnnx0qrOMmZNhcqMU=
 github.com/coreos/go-systemd/v22 v22.3.3-0.20220203105225-a9a7ef127534/go.mod h1:Y58oyj3AT4RCenI/lSvhwexgC+NSVTIJ3seZv2GcEnc=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=

@@ -7,13 +7,14 @@ import (
 )
 
 type BridgeConfig struct {
-	Writer   WriterConfig `yaml:"writerConfig"`
-	Endpoint string       `yaml:"endpoint"`
+	Writer        WriterConfig `yaml:"writerConfig"`
+	ProxyEndpoint string       `yaml:"proxyEndpoint"`
+	Workers       int          `yaml:"workers"`
+	Id            int32        `yaml:"id"`
 }
 
 type WriterConfig struct {
-	// ChunkSize int64  `yaml:"chunkSize"` // chunk size in bytes
-	BasicDir  string `yaml:"basicDir"`
+	BasicDir string `yaml:"basicDir"`
 }
 
 func ConfigFromFile(file string) (*BridgeConfig, error) {
