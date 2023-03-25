@@ -15,6 +15,7 @@ import (
 	"github.com/Big-Kotik/transparent-data-bridge-server/internal/writer"
 	"github.com/rs/zerolog"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 )
 
 //go:embed config.yaml
@@ -46,7 +47,8 @@ func main() {
 	}
 
 	w := writer.NewFileCreator(cfg.Writer.BasicDir)
-	conn, err := grpc.Dial(cfg.ProxyEndpoint)
+	// TODO: enable tls
+	conn, err := grpc.Dial(cfg.ProxyEndpoint, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	defer conn.Close()
 	if err != nil {
 		log.Fatal().
